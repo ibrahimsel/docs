@@ -10,6 +10,7 @@ npm-debug.log
 .idea
 .scannerwork
 package-lock.json
+yarn.lock
 test-report.xml
 lcov-report
 lcov.info

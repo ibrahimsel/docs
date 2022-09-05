@@ -13,13 +13,16 @@ Please review this document to make the contribution process open and available 
 
 Following these guidelines helps to communicate that you respect the time of the developers managing and developing this open source project. In return, they should reciprocate that respect in addressing your issue or assessing patches and features.
 
-1. [Code Of Conduct](#code-of-conduct)
-2. [Questions](#questions)
-3. [Bug Reports](#bug-reports)
-4. [Pull Request](#pull-request)
-5. [Testing](#testing)
-6. [Styleguide](#styleguide)
-7. [Collaborating Guidelines](#collaborating-guidelines)
+- [Contributing to LiveUI](#contributing-to-liveui)
+  - [Code of Conduct](#code-of-conduct)
+  - [Questions](#questions)
+- [Bug Reports](#bug-reports)
+- [Feature Request](#feature-request)
+- [Pull Request](#pull-request)
+  - [Testing](#testing)
+- [Styleguide](#styleguide)
+  - [JavaScript Styleguide](#javascript-styleguide)
+- [Collaborating Guidelines](#collaborating-guidelines)
 
 ### Code of Conduct
 
@@ -142,7 +145,7 @@ Generally follow the [JavaScript Standard Style](https://standardjs.com/).
 
 ## Collaborating Guidelines
 
-You can find the list of all contributors in [README.md](./README.md).
+You can find the list of all contributors in the home-page readme.
 
 There are few basic rules to ensure high quality of the LiveUI:
 
