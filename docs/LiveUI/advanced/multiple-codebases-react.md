@@ -5,7 +5,7 @@ sidebar_label: Multiple Codebases for React
 sidebar_position: 3
 ---
 
-In this section, we will look at working with different codebases using LiveUI. If you did not read our [Organizing Your Codebase](organizing-your-codebase) section, we recommend to read the document first.
+In this section, we will look at working with different codebases using LiveUI. If you did not read our [Organizing Your Codebase](organizing-code-base) section, we recommend to read the document first.
 
 Let's assume we have a project structure like follows:
 
@@ -35,7 +35,7 @@ npx liveui react add-post
 
 We created a `react` project named `add-post` via the command above.
 
-This is the initial project structure. For more information about this project please check our [Getting Started - React](docs/getting-started-react) section.
+This is the initial project structure. For more information about this project please check our [Getting Started - React](../getting-started/getting-started-react) section.
 ```
 add-post
 ├── internals

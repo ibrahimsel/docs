@@ -76,7 +76,7 @@ function Home() {
                   'button button--primary button--lg'
                 )}
                 style={{ marginRight: 10 }}
-                to={useBaseUrl('docs/zero-configuration')}>
+                to={useBaseUrl('docs/LiveUI/getting-started/zero-configuration')}>
                 Get Started
               </Link>
               <Link
@@ -84,7 +84,7 @@ function Home() {
                   'button button--secondary button--lg'
                 )}
                 style={{background: '#ccd0cf'}}
-                to={useBaseUrl('docs/intro')}>
+                to={useBaseUrl('docs/muto')}>
                 Learn More
               </Link>
             </div>

@@ -27,4 +27,4 @@ In your projects, you have to import `liveui` from the LiveUI Core library. In i
     
     liveui.initializeApp(config);
 
-If you want to get a more information about liveui.config, [click here](/docs/LiveUI/explore).
+If you want to get a more information about liveui.config, [click here](../explore).

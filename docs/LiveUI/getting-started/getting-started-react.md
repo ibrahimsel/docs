@@ -68,7 +68,7 @@ Runs the app in development mode and serve the initial remote component.
 
 <!-- > **A remote:** another build, where part of it is being consumed by a “host” -->
 
-When you start the application open [`http://localhost:5000`](http://localhost:5000) to test your new app in the browser. You will see just a basic component that displays 'This is the Foo component..'. This application is no different from a traditional React application. However, LiveUI has added a [`remote`](/docs/LiveUI/explore#remotes) configuration for component that is running on [`http://localhost:5001`](http://localhost:5001) and it is ready to be used in other React applications for development or deployment. Edit `src/index.js` to change the initial remote component and see the browser to view your changes.
+When you start the application open [`http://localhost:5000`](http://localhost:5000) to test your new app in the browser. You will see just a basic component that displays 'This is the Foo component..'. This application is no different from a traditional React application. However, LiveUI has added a [`remote`](../explore#remotes) configuration for component that is running on [`http://localhost:5001`](http://localhost:5001) and it is ready to be used in other React applications for development or deployment. Edit `src/index.js` to change the initial remote component and see the browser to view your changes.
 
 ### __`npm run build`__
 
@@ -124,9 +124,9 @@ module.exports = {
 
 > We created the config file under the src folder because of Create React App does not support relative imports outside of `src/`. If you use something else like react-boilerplate it's recommended that create the config file under the root folder.
 
-In the above config, we define the [`shares`](/docs/LiveUI/explore#shares) configuration option to tell what libraries, packages, components, or static files will be commonly used between the host application and [`remotes`](/docs/LiveUI/explore#remotes).  This will optimize the bundles that are used in runtime by avoiding duplications of libraries in the host and remote packages.
+In the above config, we define the [`shares`](../explore#shares) configuration option to tell what libraries, packages, components, or static files will be commonly used between the host application and [`remotes`](../explore#remotes).  This will optimize the bundles that are used in runtime by avoiding duplications of libraries in the host and remote packages.
 
-The [`remotes`](/docs/LiveUI/explore#remotes) option is where we specify the name and URL of our component. If you remember, in the previous section when we start the application the remote component was running on [http://localhost:5001/foo](http://localhost:5001/foo).
+The [`remotes`](../explore#remotes) option is where we specify the name and URL of our component. If you remember, in the previous section when we start the application the remote component was running on [http://localhost:5001/foo](http://localhost:5001/foo).
 
 Open `index.js` under the src folder and edit to initialize the the host app with the LiveUI config:
 

@@ -26,7 +26,7 @@ Following these guidelines helps to communicate that you respect the time of the
 
 ### Code of Conduct
 
-Read and follow our [LiveUI Code of Conduct](/docs/code-of-conduct). Please report unacceptable behavior to [info@composiv.com](mailto:info@composiv.com).
+Read and follow our [LiveUI Code of Conduct](code-of-conduct). Please report unacceptable behavior to [info@composiv.com](mailto:info@composiv.com).
 
 ### Questions
 
@@ -135,7 +135,7 @@ Other contributors will review your work to add your changes to the project; wil
 
 ### Testing
 
-When you made changes in our repositories [LiveUI Core](/docs/liveui-core), [LiveUI React](/docs/liveui-react) or [LiveUI React Native](/docs/liveui-react-native) ; you can run `npm test` and see the coverage inside the libraries. For integrating the coverage, try to follow the [Jest JavaScript Testing Framework](https://jestjs.io/).
+When you made changes in our repositories [LiveUI Core](https://github.com/eclipse-muto/liveui-core), [LiveUI React](https://github.com/eclipse-muto/liveui-react) or [LiveUI React Native](https://github.com/eclipse-muto/liveui-react-native) ; you can run `npm test` and see the coverage inside the libraries. For integrating the coverage, try to follow the [Jest JavaScript Testing Framework](https://jestjs.io/).
 
 ## Styleguide
 

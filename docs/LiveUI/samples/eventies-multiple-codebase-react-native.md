@@ -8,7 +8,7 @@ sidebar_label: Eventies - Multiple Codebase for React Native
     <img src="../img/showcase-eventies.png" />
 </p>
 
-[This application](https://github.com/composiv/liveui-samples/eventies-multiple-codebase-react-native) is an implementation of [Multiple Codebase for React Native](/docs/LiveUI/advanced/multiple-codebases-react-native).
+[This application](https://github.com/composiv/liveui-samples/eventies-multiple-codebase-react-native) is an implementation of [Multiple Codebase for React Native](../advanced/multiple-codebases-react-native).
 
 ---
 
@@ -81,7 +81,7 @@ To run remote component only:
 ```command
 npm run start-live
 ```
-> This command was defined on the `scripts/package.json` and runs `@eclipse-muto/liveui start-native` command. For more information about LiveUI CLI commands, please check [it's documentation](/docs/LiveUI/api-reference/liveui).
+> This command was defined on the `scripts/package.json` and runs `@eclipse-muto/liveui start-native` command. For more information about LiveUI CLI commands, please check [it's documentation](../api-reference/liveui).
 
 ## eventies-components
 
@@ -112,4 +112,4 @@ To run remote component only:
 ```command
 npm run start-live
 ```
-> This command was defined on the `scripts/package.json` and runs `@eclipse-muto/liveui start-native` command. For more information about LiveUI CLI commands, please check [it's documentation](/docs/LiveUI/api-reference/liveui).
+> This command was defined on the `scripts/package.json` and runs `@eclipse-muto/liveui start-native` command. For more information about LiveUI CLI commands, please check [it's documentation](../api-reference/liveui).

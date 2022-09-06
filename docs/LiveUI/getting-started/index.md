@@ -6,8 +6,8 @@ sidebar_position: 1
 ---
 
 
-[Zero Configuration](/docs/LiveUI/getting-started/zero-configuration)  
-[React](/docs/LiveUI/getting-started/getting-started-react)  
-[React Native](/docs/LiveUI/getting-started/getting-started-react-native)  
+[Zero Configuration](zero-configuration)  
+[React](getting-started-react)  
+[React Native](getting-started-react-native)  
 
 

@@ -8,7 +8,7 @@ sidebar_label: Book Universe - Multiple Codebase for React
     <img src="../img/showcase-book-universe-advanced.png" />
 </p>
 
-[This application](https://github.com/composiv/liveui-samples/book-universe-multiple-codebase-react) is an implementation of [Multiple Codebase for React](/docs/LiveUI/advanced/multiple-codebases-react).
+[This application](https://github.com/composiv/liveui-samples/book-universe-multiple-codebase-react) is an implementation of [Multiple Codebase for React](../advanced/multiple-codebases-react).
 
 ---
 

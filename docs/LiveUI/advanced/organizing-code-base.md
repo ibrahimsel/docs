@@ -17,7 +17,7 @@ Single Code Base is the use where the project is under a single code file. It is
 
 In this use where the project is a single code base, you need to use more than one configuration file because the UI component you want to make live and where you want to use this component will be under the same project. 
 
-More information about how to use this single code base in [React](/docs/single-code-base-react) and [React Native](/docs/single-code-base-reactnative).
+More information about how to use this single code base in [React](single-codebase-react) and [React Native](single-codebase-react-native).
 
 ### Multiple Code Bases
 
@@ -25,7 +25,7 @@ Multiple Code Bases are a use for split projects where the project has multiple 
 
 In this use, where the project is a multiple code bases, you need to use a configuration file in both the parent and child projects, since the UI component you want to make remote is in the child project, and where you want to use this component is in the main project. 
 
-More information about how to use this multiple code bases in [React](/docs/LiveUI/advanced/multiple-code-bases-react) and [React Native](/docs/LiveUI/advanced/multiple-code-bases-reactnative).
+More information about how to use this multiple code bases in [React](multiple-codebases-react) and [React Native](multiple-codebases-react-native).
 
 ### Mixed Code Base
 

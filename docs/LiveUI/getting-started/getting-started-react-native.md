@@ -79,7 +79,7 @@ Inside the newly created project, you can run some built-in commands:
 
 Runs the app in development mode and serve the initial remote component. 
 
-When you start the application open to view it in the emulator. You will see just a basic component that displays 'This is the Foo component..'. This application is no different from a traditional React Native application. However, LiveUI has added a [`remote`](/docs/LiveUI/explore#remotes) configuration for component that is running on [`http://localhost:5001/foo`](http://localhost:5001/foo) and it is ready to be used in other React Native applications for development or deployment. Edit `src/index.js` to change the initial remote component and see the browser to view your changes.
+When you start the application open to view it in the emulator. You will see just a basic component that displays 'This is the Foo component..'. This application is no different from a traditional React Native application. However, LiveUI has added a [`remote`](../explore#remotes) configuration for component that is running on [`http://localhost:5001/foo`](http://localhost:5001/foo) and it is ready to be used in other React Native applications for development or deployment. Edit `src/index.js` to change the initial remote component and see the browser to view your changes.
 
 
 ### __`npm run build`__
@@ -134,9 +134,9 @@ module.exports = {
 }
 ```
 
-In the above config, we define the [`shares`](/docs/LiveUI/explore#shares) configuration option to tell what libraries, packages, components, or static files will be commonly used between the host application and [`remotes`](/docs/LiveUI/explore#remotes).  This will optimize the bundles that are used in runtime by avoiding duplications of libraries in the host and remote packages.
+In the above config, we define the [`shares`](../explore#shares) configuration option to tell what libraries, packages, components, or static files will be commonly used between the host application and [`remotes`](../explore#remotes).  This will optimize the bundles that are used in runtime by avoiding duplications of libraries in the host and remote packages.
 
-The [`remotes`](/docs/LiveUI/explore#remotes) option is where we specify the name and URL of our component. If you remember, in the previous section when we start the application the remote component was running on [http://localhost:5001/foo](http://localhost:5001/foo).
+The [`remotes`](../explore#remotes) option is where we specify the name and URL of our component. If you remember, in the previous section when we start the application the remote component was running on [http://localhost:5001/foo](http://localhost:5001/foo).
 
 Open `index.js` under the project folder and edit to initialize the config:
 

@@ -62,4 +62,4 @@ LiveUI opts for run-time integration via JavaScript that is tightly integrated w
 
 ## Where to start?
 
-You can jump to the [quick start](/docs/getting-started-react) section to get started with LiveUI. If you want to see some examples, check our  [samples repository](https://gitlab.eteration.com/eteration/labs/composiv/liveui-samples "samples").
+You can jump to the [quick start](../LiveUI/getting-started/getting-started-react) section to get started with LiveUI. If you want to see some examples, check our  [samples repository](https://gitlab.eteration.com/eteration/labs/composiv/liveui-samples "samples").

@@ -2,7 +2,7 @@ module.exports = {
   title: 'Eclipse Muto',
   tagline: 'Adaptive ROS framework and a runtime platform for dynamically composable model-driven ROS software stacks',
   url: 'https://eclipse-muto.github.io',
-  baseUrl: '/docs',
+  baseUrl: '/docs/',
   favicon: 'img/favicon.ico',
   organizationName: 'Eclipse Foundation', // Usually your GitHub org/user name.
   projectName: 'Muto', // Usually your repo name.
@@ -63,27 +63,27 @@ module.exports = {
           items: [
             {
               label: 'Introduction',
-              to: 'docs/muto',
+              to: './docs/muto',
             },
             {
               label: 'Getting Started',
-              to: 'docs/LiveUI/getting-started/getting-started-react',
+              to: './docs/LiveUI/getting-started/getting-started-react',
             },
             {
               label: 'Explore The Code',
-              to: 'docs/LiveUI/explore',
+              to: './docs/LiveUI/explore',
             },
             {
               label: 'API Reference',
-              to: 'docs/LiveUI/api-reference',
+              to: './docs/LiveUI/api-reference',
             },
             {
               label: 'Contributing',
-              to: 'docs/contributing/contributing',
+              to: 'docs/contributing',
             },
             {
               label: 'Support',
-              to: 'docs/LiveUI/support/troubleshooting',
+              to: './docs/LiveUI/support/troubleshooting',
             },
           ],
         },

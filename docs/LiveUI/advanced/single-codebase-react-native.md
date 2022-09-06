@@ -97,15 +97,15 @@ module.exports = {
 }
 ```
 
-__[`shared`](/docs/LiveUI/explore#shared):__ You need to define this option with some modules like libraries, components, classes, etc. In this way, remote components will try to get these values from the environment in which they run. You can think these values are shared by the host application that we will explain in the next section.
+__[`shared`](../explore#shared):__ You need to define this option with some modules like libraries, components, classes, etc. In this way, remote components will try to get these values from the environment in which they run. You can think these values are shared by the host application that we will explain in the next section.
 
 > `host` is the application that consumes remote components.
 
-__[`exposes`](/docs/LiveUI/explore#exposes):__ Then you need to specify component names and paths as key-value pairs that will be used as remotes on this  option. The name of the component is important because of the remote component will be served using this name.
+__[`exposes`](../explore#exposes):__ Then you need to specify component names and paths as key-value pairs that will be used as remotes on this  option. The name of the component is important because of the remote component will be served using this name.
 
-__[`microPort`](/docs/LiveUI/explore#microPort):__ In development, you can define a port that is responsible for serving your remote components.
+__[`microPort`](../explore#microPort):__ In development, you can define a port that is responsible for serving your remote components.
 
-__[`hotReloadContext`](/docs/LiveUI/explore#microPort):__ The value you defined here helps LiveUI for hot module replacement on the host application in development.
+__[`hotReloadContext`](../explore#microPort):__ The value you defined here helps LiveUI for hot module replacement on the host application in development.
 
 Our configuration is complete. Let's try to run and serve our components as a remote component.
 
@@ -146,9 +146,9 @@ module.exports = {
     }
 }
 ```
-__[`shared`](/docs/LiveUI/explore#shares):__ As we described above, we define modules that are used by remote components.
+__[`shared`](../explore#shares):__ As we described above, we define modules that are used by remote components.
 
-__[`remotes`](/docs/LiveUI/explore#remotes):__ Define your component names and URLs. 
+__[`remotes`](../explore#remotes):__ Define your component names and URLs. 
 
 The next step is initializing our LiveUI host config.
 

@@ -8,7 +8,7 @@ sidebar_label: Todo - Single Codebase for React Native
     <img src="../img/showcase-todos.png" />
 </p>
 
-[This application](https://github.com/composiv/liveui-samples/todo-single-codebase-react-native) is an implementation of [Single Codebase for React Native](/docs/LiveUI/advanced/single-codebase-react-native).
+[This application](https://github.com/composiv/liveui-samples/todo-single-codebase-react-native) is an implementation of [Single Codebase for React Native](../advanced/single-codebase-react-native).
 
 ---
 
@@ -47,4 +47,4 @@ Start serving remote components:
 ```
 npm run start:live
 ```
-> This command was defined on the `scripts/package.json` and runs `@eclipse-muto/liveui start-native` command. For more information about LiveUI CLI commands, please check [it's documentation](/docs/LiveUI/api-reference/liveui).
+> This command was defined on the `scripts/package.json` and runs `@eclipse-muto/liveui start-native` command. For more information about LiveUI CLI commands, please check [it's documentation](../api-reference/liveui).

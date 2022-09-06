@@ -89,7 +89,7 @@ function Home() {
                   'button button--secondary button--lg'
                 )}
                 style={{background: '#ccd0cf'}}
-                to={useBaseUrl('docs/intro')}>
+                to={useBaseUrl('docs/muto')}>
                 Learn More
               </Link>
             </div>

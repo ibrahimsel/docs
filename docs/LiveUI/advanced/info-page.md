@@ -9,7 +9,7 @@ This document is about the LiveUI Micro Frontend Information Page.
 
 To view this information page,first you must start your micro frontend, that is, run it as a service. To do this, you need to specify the micro frontends you want to work with in your LiveUI configuration file and run a command.
 
-For more information about LiveUI Configuration File [click here](/docs/LiveUI/explore).
+For more information about LiveUI Configuration File [click here](../explore).
 
 If you have not changed the port in your configuration file, this information page can be viewed via http://localhost:5001 after running the command. Port 5001 is the default port in LiveUI. If you change the port, you must use the new port in the url extension.
 
