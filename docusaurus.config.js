@@ -1,11 +1,12 @@
 module.exports = {
   title: 'Eclipse Muto',
   tagline: 'Adaptive ROS framework and a runtime platform for dynamically composable model-driven ROS software stacks',
-  url: 'https://eclipse-muto.github.io',
-  baseUrl: '/docs/',
+  url: 'https://github.com',
+  baseUrl: '/',
   favicon: 'img/favicon.ico',
-  organizationName: 'Eclipse Foundation', // Usually your GitHub org/user name.
-  projectName: 'Muto', // Usually your repo name.
+  organizationName: 'eclipse-muto', // Usually your GitHub org/user name.
+  projectName: 'docs', // Usually your repo name.
+  deploymentBranch: 'gh-pages', 
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
