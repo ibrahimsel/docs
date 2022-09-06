@@ -74,7 +74,7 @@ function Home() {
           <p className="hero__subtitle">{siteConfig.tagline}</p> */}
           <div className="row">
             <div className={classnames('col col--6', styles.feature, styles.valign)}>
-              <img className={styles.mutoLogo}  src={logo}  alt="Muto Logo"  />
+              <Image img={logo} alt="Muto Logo" />
               <div className={styles.buttons}>
               <Link
                 className={classnames(
@@ -95,7 +95,7 @@ function Home() {
             </div>
             </div>
             <div className={classnames('col col--6')}>
-              <img className={styles.splashImage} src={mutosplash} alt={'banner img'} />
+              <Image className={styles.splashImage} img={mutosplash} alt={'banner img'} />
             </div>
           </div>
         </div>

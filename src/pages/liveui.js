@@ -6,7 +6,7 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import styles from './styles.module.css';
 import Image from '@theme/IdealImage';
-import logo from '../../static/img/logo-left-text.png';
+import logo from '../../static/img/logo-left-text-liveui.png';
 
 const features = [
   {
