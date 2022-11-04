@@ -8,6 +8,9 @@ sidebar_position: 1
 ## Background: 
 Autonomous driving and connectivity are cornerstones of the next generation of mobility. Users expect mobility experience to be personal, seamlessly integrated, connected and with demand services that can adapt to their immediate needs. These systems demand immense computing power in order to mimic the adaptivity and the awareness of a human driver under different driving circumstances and context variations. Contextual adaptivity requires a system to make sense of large volumes of rich & continuous data coming from the devices, the user behavior and the environment.
 
+<p align="center">
+    <img src="../../img/muto-splash.png" />
+</p>
 Many solutions use hardwired, closed & proprietary software with often unexplainable built-in biases. Robot Operating System (ROS) allows a modular system to be designed as a fully distributed computation, so different functional modules (i.e. sensing, perception, decision, planning, actuation, etc) can act together as a single autonomous vehicle. 
 
 A challenge with a typical ROS based hardwired solution is that the components (nodes, a network of interconnected computational and executable units) constituting the system are deployed into an environment to fulfill a certain concern with a specific mission plan, and they are not typically designed or implemented to react and to adapt changing requirements in the environment.  A major difficulty that prevails for any adaptive system is being able to update the system without compromising its mission, plan, safety and security while it is active because the damages could be substantial.
@@ -20,8 +23,26 @@ Eclipse Muto introduces the concept of a lightweight model for ROS software stac
 
 The adaptive behavior is introduced by an extensible model where the context detection, stack rewriting, validation, constraint satisfaction, safety and security concerns can be offloaded to other modules (i.e proprietary systems). An example of such a module would be a remote control system where human operators determine the next configuration.  A different implementation might use machine learning and scene detection to switch and transition to different stacks that are suitable to the current context.
 
-## Description: 
-Eclipse Muto provides an adaptive framework and a runtime platform for dynamically composable model-driven ROS software stacks. Eclipse Muto can be used  to introspect, monitor and manipulate the actively running ROS graph (the network of ROS nodes).
+## Runtime 
+Eclipse Muto provides an adaptive framework and a runtime  for dynamically composable model-driven ROS software stacks. Eclipse Muto can be used  to introspect, monitor and manipulate the actively running ROS graph (the network of ROS nodes). The muto runtime has two components that run on edge devices, the `Agent` and the `Composer`.
+
+<p align="center">
+    <img src="../../img/muto-components.png" />
+</p>
+
+The `Agent` is basically a ROS node that acts as gateway between the cloud (`Muto Twin`) and the edge device.  The composer is a high performance and lightweight  `Composer` engine which can handle complex transfomations of software and lifecycle on the device. These components are build with extensibility in mind. All `Agent` and `Composer` capabilities are provided by muto plugins. Infact, muto comes with example plugins that you can use to customize it for your own functionality. There are two types of plugins:
+* `Command Plugins`  These are plugins for the `Agent`. They are called  `Command Plugins` because they are used to add behavior to the `Agent` and can be invoked by a client using the mqtt protocol, and get the command response will be returned using a target topic (more on this later)
+* `Composer Plugins` and `Flows` These are plugins for the `Composer`. The `Composer` behavior is driven by a `Flow`, which is a lightweight orchestration definition. Each step in a flow desciption invokes a `Composer Plugin`.
+<p align="center">
+    <img src="../../img/muto-flow.png"  style={{scale: "0.8"}}/>
+</p>
+
+Muto devices are managed by their [digital twin](https://en.wikipedia.org/wiki/Digital_twin). Muto uses [Eclipse Ditto](https://www.eclipse.org/ditto/) to build digital twins
+of devices connected to the cloud. We also provide a [`sandbox`](https://sandbox.composiv.ai) and an example [`dashboard`](https://dashboard.composiv.ai) that is connected to the sandbox to demonstrate Muto's capabilities.
+
+<p align="center">
+    <img src="../../img/muto-topology.png"  style={{scale: "0.8"}}/>
+</p>
 
 ### Agent
 
@@ -43,14 +64,15 @@ Composer is a runtime ROS component (Node) that is responsible for the life cycl
 
 A simple extensible Web/Mobile application for centralized management of edge devices and software stacks. It provides a plugable micro front end architecture for extensibility and an exemplary view for managing edge devices and composable ROS stacks on these devices. It supports and uses Eclipse Ditto device twins technology (and therefore protocols such as MQTT and REST/HTTP)  for managing ROS based devices. It is designed to be modular at architectural level to make it easy to  extend for a multitude of ROS applications.
 
+<p align="center">
+    <img src="../../img/muto-dashboard.png"  style={{scale: "0.8"}}/>
+</p>
 The dashboard provides the following functionalities:
 
-***  Node Viewer : A graphical visualization of the ROS computational network that represents the actively running ROS nodes of the current state. It displays the node-to-node and node-to-topic affiliations with introspection information ( name, subscriber, publisher etc.)
-***  Stack Panel
-***  List: An interface to list the stack models that describe the components of a software stack that complies with the information model stored in the twin server. 
-***  Diff: An interface to describe the algebraic differences between two models in terms of nodes and node related parameters .
-***  Remote Control Actions: An interface to manage (start,stop, update) the lifecycle of the software stack on the edge device.
-***  ROS Controls: Dashboard provides a graphical UI for some of the common ROS cli commands.
+* Vehicles : A graphical visualization of the ROS computational network that represents the actively running ROS nodes of the current state. It displays the node-to-node and node-to-topic affiliations with introspection information ( name, subscriber, publisher etc.)
+* Stacks: An interface to list the stack models that describe the components of a software stack that complies with the information model stored in the twin server. 
+* Remote Control Actions: An interface to manage (start,stop, update) the lifecycle of the software stack on the edge device.
+* ROS Controls: Dashboard provides a graphical UI for some of the common ROS cli commands.
 
 ### LiveUI
 

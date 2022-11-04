@@ -116,6 +116,7 @@ function Home() {
                   Learn More
                 </Link>
               </div>
+            
             </div>
             <div className={classnames("col col--6")}>
               <Image
@@ -123,7 +124,9 @@ function Home() {
                 img={mutosplash}
                 alt={"banner img"}
               />
+              <h3 style={{color:"white"}}>an adaptive framework and a runtime for dynamically composable model-driven software stacks for ROS</h3>
             </div>
+  
           </div>
         </div>
       </header>

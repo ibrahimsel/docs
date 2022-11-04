@@ -8,7 +8,7 @@ sidebar_position: 2
 ## Background: 
 
 ## Muto Edge Guides
-
+[Getting Started](getting-started)  
 [Core](mutocore)  
 [Agent](mutoagent)  
 [Composer](mutocomposer)  
