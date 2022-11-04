@@ -17,4 +17,6 @@ clover.xml
 coverage-final.json
 
 .docusaurus
+.yarn
+.vscode
 npm-report.html
