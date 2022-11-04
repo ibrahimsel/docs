@@ -198,5 +198,5 @@ The ROS workspace in the docker image is /home/muto.
 Please pay extra attention to the `name:` of our service. It needs to be identical to the name in the `.yaml` file.
 We'll publish data either to `/drive`,`/key` or `/mux ` topics depending on the command that this channel recieves.
 
-
+Now execute the steps in `Muto by Example` and continue until this step. Then use MQTTX to send you commands to agent and observe that your vehicle acts accordingly in Foxglove Visualiser.
 
