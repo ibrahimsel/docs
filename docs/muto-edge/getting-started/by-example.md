@@ -1,5 +1,5 @@
 ---
-id: y-example
+id: by-example
 title: Muto By Example
 sidebar_label:  Muto By Example
 sidebar_position: 1
