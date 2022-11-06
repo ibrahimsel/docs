@@ -89,7 +89,11 @@ Open `example.yaml` under the src folder and edit to initialize the the host app
       user: none
       password: none
     thing:
-      namespace: org.eclipse.muto.sandbox.f1tenth # subject to change
+      namespace: org.eclipse.muto.sandbox # subject to change
+      definition: org.eclipse.muto:EdgeDevice:0.0.1
+      attributes:
+        brand: f1tenth.org
+        model: f1tenthsimulation
       anonymous: False  # Use this for automatically generated id (uuid based)
       #   if anonymous is True or anynoymous param is missing, name/id will be auto generated
       # TODO: edit the name below
