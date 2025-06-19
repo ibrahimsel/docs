@@ -1,14 +1,14 @@
 ---
-id: quickstart
-title: Quickstart
-sidebar_label: Quickstart
+id: usage
+title: Usage
+sidebar_label: Usage
 sidebar_position: 3
 ---
 
 To get started with Muto, **make sure** you have followed the [installation instructions](../installation/).
 Once you have Muto installed, you can start using it to manage your projects. Here’s a quick guide to get you up and running:
 
-## Quickstart Guide
+## Usage Guide
 
 ```bash
 curl muto_repo

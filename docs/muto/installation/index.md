@@ -2,7 +2,7 @@
 id: installation
 title: Installation
 sidebar_label: Installation
-sidebar_position: 2
+sidebar_position: 3
 ---
 
 ## Prerequisites
@@ -42,11 +42,12 @@ If you prefer to build Eclipse Muto from source, you can clone the repository an
 
 ```bash
 mkdir -p muto/src
-cd muto
+cd muto/src
 git clone https://github.com/eclipse-muto/agent.git
 git clone https://github.com/eclipse-muto/composer.git
 git clone https://github.com/eclipse-muto/core.git
 git clone https://github.com/eclipse-muto/messages.git
+cd ..
 rosdep install --from-paths src --ignore-src -r -y
 colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release
 ```
