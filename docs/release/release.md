@@ -9,9 +9,7 @@ sidebar_position:  50
 
 The following steps shall be done before the "Creating a Release" section.
 
-1. Create an isssue containing tasks for getting the main branch ready:
-    2. Execute tests on the supported targets.
-    3. Make sure there are no security warnings of Github dependabot.
+1. Create an isssue containing tasks for getting the main branch ready
 2. Finish all tasks inside the issue.
 3. Build the release branch and make sure there are no error.
 4. Execute tests and make sure there are no error.
