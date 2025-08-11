@@ -15,7 +15,48 @@ Many solutions use hardwired, closed & proprietary software with often unexplain
 
 A challenge with a typical ROS based hardwired solution is that the components (nodes, a network of interconnected computational and executable units) constituting the system are deployed into an environment to fulfill a certain concern with a specific mission plan, and they are not typically designed or implemented to react and to adapt changing requirements in the environment.  A major difficulty that prevails for any adaptive system is being able to update the system without compromising its mission, plan, safety and security while it is active because the damages could be substantial.
 
+
+# Why Another Orchestration Tool?
+
+## The Unique Challenges of ROS2
+
+ROS2 has become the de-facto middleware for robotic systems, enabling decentralized, modular, and real-time capable robotics solutions. Despite its widespread adoption, managing large-scale deployments, handling complex runtime states, and maintaining efficient software updates remain challenging. Existing orchestration tools typically cater to cloud and microservices environments, not fully addressing the nuanced requirements of robotic systems running on ROS2.
+
 ---
+
+### 1. Fragmented Launch & Lifecycle Management
+
+* **Pain:** You’ve got dozens of `.launch` files, each with its own quirks, and ROS 2’s built-in lifecycle API is powerful but under-adopted. Spinning up, tearing down, and upgrading nodes manually gets messy fast.
+* **Muto fix:** A central manifest (YAML/JSON) that describes your desired “graph” (nodes, parameters, remappings, lifecycles) plus a controller that handles rollout, health-checks, and graceful shutdowns.
+
+### 2 Changing ROS Parameters at Runtime
+
+* **If the ROS Node is listening to the parameter server**, Eclipse Muto provides the interface to change the parameters at runtime
+
+
+### 3. Consistent Parameter & Config Management
+
+* **Pain:** Parameters live in code, launch files, env vars, config files… it’s nearly impossible to guarantee everyone’s running with the same tuning set.
+* **Muto fix:** Treat parameters like Kubernetes ConfigMaps: versioned, namespaced, injected at runtime, and even hot-reloaded across the robot fleet.
+
+### 4. Versioning, Deployment & Rollbacks
+
+* **Pain:** Upgrading a single microservice means SSH’ing into each machine, rebuilding, and hoping nothing breaks—or you risk incompatible changes across nodes.
+* **Muto fix:** Containerize every ROS 2 node, push immutable images to a registry, and use declarative Deployments with rolling updates + automatic rollbacks on failure.
+
+### 5. Self-Healing & Health Monitoring
+
+* **Pain:** When a node crashes, sometimes the whole system falls apart, and you might not notice until you’re staring at a dead robot in the aisle.
+* **Muto fix:** Built-in liveness/readiness probes and auto-restart policies—plus a dashboard that shows node-level CPU, memory, crash-looping stats in real-time.
+
+### 6. Observability (Logs, Metrics & Tracing)
+
+* **Pain:** Rviz and `ros2 topic echo` are great for debugging locally but worthless in production. Gathering logs from ten robots is a nightmare.
+* **Muto fix:** Telemetry data constantly gets published through agent, so you could observe the logs through `Muto Dashboard` and possibly visualize them.
+
+
+Eclipse Muto isn’t merely another orchestration tool—it’s an essential solution purpose-built to address the unique orchestration challenges of ROS2-based robotic systems.
+
 ## Scope
 Eclipse Muto provides an adaptive framework and a runtime platform for dynamically composable model-driven ROS software stacks on autonomous vehicles and robots in general.  
 
