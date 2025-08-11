@@ -18,7 +18,7 @@ A challenge with a typical ROS based hardwired solution is that the components (
 
 # Why Another Orchestration Tool?
 
-## The Unique Challenges of ROS2
+### The Unique Challenges of ROS2
 
 ROS2 has become the de-facto middleware for robotic systems, enabling decentralized, modular, and real-time capable robotics solutions. Despite its widespread adoption, managing large-scale deployments, handling complex runtime states, and maintaining efficient software updates remain challenging. Existing orchestration tools typically cater to cloud and microservices environments, not fully addressing the nuanced requirements of robotic systems running on ROS2.
 
