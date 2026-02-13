@@ -20,7 +20,7 @@ Muto Dashboard is a web-based user interface for managing and monitoring Eclipse
 
 The fastest way to get started is using the hosted dashboard at [https://dashboard.composiv.ai](https://dashboard.composiv.ai). This connects to the Muto sandbox and shows all registered vehicles and stacks.
 
-1. **Start Muto** with your vehicle connected to the sandbox (see [Getting Started](./index)):
+1. **Start Muto** with your vehicle connected to the sandbox (see [Getting Started](./))::
 
 ```bash
 podman run --rm -it \

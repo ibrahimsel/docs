@@ -3,6 +3,7 @@ id: mutocore
 title: Muto Core
 sidebar_label: Core
 sidebar_position: 2
+slug: core
 ---
 
 # Muto Core
@@ -184,7 +185,7 @@ Muto devices are represented as Ditto Things:
 
 ## Related Documentation
 
-- [Muto Edge Overview](./index)
+- [Muto Edge Overview](./)
 - [Agent Documentation](./agent)
 - [Composer Documentation](./composer)
 - [Digital Twins](../muto-twins)

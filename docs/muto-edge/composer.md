@@ -3,6 +3,7 @@ id: mutocomposer
 title: Muto Composer
 sidebar_label: Composer
 sidebar_position: 4
+slug: composer
 ---
 
 # Muto Composer
@@ -249,7 +250,7 @@ To add a new plugin:
 
 ## Related Documentation
 
-- [Muto Edge Overview](./index)
+- [Muto Edge Overview](./)
 - [Agent Documentation](./agent)
 - [Core Documentation](./core)
 - [Getting Started Guide](./getting-started)

@@ -218,4 +218,4 @@ Types: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`
 - [Muto Introduction](../muto)
 - [Agent Documentation](../muto-edge/agent)
 - [Composer Documentation](../muto-edge/composer)
-- [Contributing Guidelines](../contributing/contributing)
+- [Contributing Guidelines](../contributing)

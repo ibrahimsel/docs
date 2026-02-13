@@ -65,23 +65,23 @@ module.exports = {
           items: [
             {
               label: 'Introduction',
-              to: '/docs/muto',
+              to: 'docs/muto',
             },
             {
               label: 'Getting Started',
-              to: '/docs/muto-edge/getting-started',
+              to: 'docs/muto-edge/getting-started',
             },
             {
               label: 'Blueprints',
-              to: '/docs/blueprint',
+              to: 'docs/blueprint',
             },
             {
               label: 'User Guide',
-              to: '/docs/user-guide',
+              to: 'docs/user-guide',
             },
             {
               label: 'Developer Guide',
-              to: '/docs/developer-guide',
+              to: 'docs/developer-guide',
             },
           ],
         },
@@ -90,19 +90,19 @@ module.exports = {
           items: [
             {
               label: 'Agent',
-              to: '/docs/muto-edge/mutoagent',
+              to: 'docs/muto-edge/agent',
             },
             {
               label: 'Composer',
-              to: '/docs/muto-edge/mutocomposer',
+              to: 'docs/muto-edge/composer',
             },
             {
               label: 'Digital Twins',
-              to: '/docs/muto-twins',
+              to: 'docs/muto-twins',
             },
             {
               label: 'Dashboard',
-              to: '/docs/muto-dashboard',
+              to: 'docs/muto-dashboard',
             },
           ],
         },
@@ -119,7 +119,7 @@ module.exports = {
             },
             {
               label: 'Contributing',
-              to: '/docs/contributing/contributing',
+              to: 'docs/contributing',
             },
           ],
         },

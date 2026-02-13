@@ -3,6 +3,7 @@ id: mutoagent
 title: Muto Agent
 sidebar_label: Agent
 sidebar_position: 3
+slug: agent
 ---
 
 # Muto Agent
@@ -183,7 +184,7 @@ ros2 launch launch/muto.launch.py \
 
 ## Related Documentation
 
-- [Muto Edge Overview](./index)
+- [Muto Edge Overview](./)
 - [Composer Documentation](./composer)
 - [Core Documentation](./core)
 - [Getting Started Guide](./getting-started)
