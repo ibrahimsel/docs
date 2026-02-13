@@ -97,6 +97,10 @@ module.exports = {
               to: 'docs/muto-edge/composer',
             },
             {
+              label: 'Graph Observer',
+              to: 'docs/muto-edge/graph-observer',
+            },
+            {
               label: 'Digital Twins',
               to: 'docs/muto-twins',
             },

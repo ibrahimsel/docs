@@ -117,6 +117,6 @@ Links to related issues, discussions, or external resources.
 
 | MEP | Title | Status |
 |-----|-------|--------|
-| — | *No MEPs submitted yet* | — |
+| [MEP-0001](./mep/MEP-0001) | Live ROS Graph Orchestration | Draft |
 
 As the project grows, accepted MEPs will be listed here as a reference for design decisions and project history.
