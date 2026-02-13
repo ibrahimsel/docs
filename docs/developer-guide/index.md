@@ -84,22 +84,13 @@ For VS Code devcontainer integration:
 
 ## Architecture Overview
 
-```
-┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
-│   Agent         │    │   Composer       │    │   Core          │
-│   - Message     │────┤   - Stack Mgmt   │────┤   - Twin        │
-│   - MQTT        │    │   - Pipelines    │    │   - Services    │
-│   - Symphony    │    │   - Plugins      │    │   - Utils       │
-└─────────────────┘    └──────────────────┘    └─────────────────┘
-         │                       │                       │
-         └───────────────────────┼───────────────────────┘
-                                 │
-                    ┌──────────────────┐
-                    │   Messages       │
-                    │   - ROS Types    │
-                    │   - Services     │
-                    │   - Interfaces   │
-                    └──────────────────┘
+```mermaid
+graph TB
+    Agent["<b>Agent</b><br/>Message Routing<br/>MQTT Gateway<br/>Symphony Provider"] --- Composer["<b>Composer</b><br/>Stack Management<br/>Pipelines<br/>Plugins"]
+    Composer --- Core["<b>Core</b><br/>Twin Services<br/>Common Utils"]
+    Agent --- Messages["<b>Messages</b><br/>ROS Types<br/>Services<br/>Interfaces"]
+    Composer --- Messages
+    Core --- Messages
 ```
 
 ## Key Development Patterns

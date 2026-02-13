@@ -2,7 +2,7 @@
 id: blueprint
 title: Blueprints
 sidebar_label: Blueprints
-sidebar_position: 1
+sidebar_position: 10
 ---
 
 # Eclipse Muto Blueprints

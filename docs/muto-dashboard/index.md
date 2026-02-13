@@ -146,18 +146,16 @@ Access Symphony Portal directly at `http://localhost:3000` when running locally.
 
 The Dashboard uses a micro-frontend architecture:
 
-```
-┌─────────────────────────────────────────┐
-│            Dashboard Shell              │
-├─────────────┬─────────────┬─────────────┤
-│   Devices   │   Stacks    │  Telemetry  │
-│   Plugin    │   Plugin    │   Plugin    │
-└─────────────┴─────────────┴─────────────┘
-        │             │             │
-        ▼             ▼             ▼
-┌─────────────────────────────────────────┐
-│          Eclipse Ditto API              │
-└─────────────────────────────────────────┘
+```mermaid
+graph TB
+    subgraph Shell["Dashboard Shell"]
+        Devices["Devices Plugin"]
+        Stacks["Stacks Plugin"]
+        Telemetry["Telemetry Plugin"]
+    end
+    Devices --> API["Eclipse Ditto API"]
+    Stacks --> API
+    Telemetry --> API
 ```
 
 ## Configuration

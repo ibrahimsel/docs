@@ -217,43 +217,21 @@ Stack definitions use the `stack/archive` content type:
 
 ## Architecture
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                      Symphony/Cloud                          │
-└─────────────────────┬───────────────────────────────────────┘
-                      │ Stack Definition
-                      ▼
-┌─────────────────────────────────────────────────────────────┐
-│                       Muto Agent                             │
-│                   (MQTT/Ditto Bridge)                        │
-└─────────────────────┬───────────────────────────────────────┘
-                      │ StackRequestEvent
-                      ▼
-┌─────────────────────────────────────────────────────────────┐
-│                     Muto Composer                            │
-│  ┌─────────────┐  ┌──────────────┐  ┌──────────────────┐   │
-│  │   Stack     │  │ Orchestration│  │   Pipeline       │   │
-│  │  Manager    │──│   Manager    │──│   Engine         │   │
-│  └─────────────┘  └──────────────┘  └──────────────────┘   │
-│         │                │                    │             │
-│         │         ┌──────┴──────┐             │             │
-│         │         │  Rollback   │             │             │
-│         │         │   Logic     │             │             │
-│         │         └─────────────┘             │             │
-│         ▼                                     ▼             │
-│  ┌─────────────┐                    ┌──────────────────┐   │
-│  │   State     │                    │    Plugins       │   │
-│  │ Persistence │                    │ (Provision/Launch│   │
-│  └─────────────┘                    └──────────────────┘   │
-│         │                                     │             │
-└─────────┼─────────────────────────────────────┼─────────────┘
-          │                                     │
-          ▼                                     ▼
-   ~/.muto/state/                      ~/.muto/workspaces/
-   └── gap_follower/                   └── gap_follower/
-       └── state.json                      ├── src/
-                                           ├── build/
-                                           └── install/
+```mermaid
+graph TB
+    Cloud["Symphony / Cloud"] -->|Stack Definition| Agent["Muto Agent<br/>(MQTT/Ditto Bridge)"]
+    Agent -->|StackRequestEvent| Composer
+
+    subgraph Composer["Muto Composer"]
+        SM["Stack Manager"] --> OM["Orchestration Manager"]
+        OM --> PE["Pipeline Engine"]
+        OM --> Rollback["Rollback Logic"]
+        SM --> State["State Persistence"]
+        PE --> Plugins["Plugins<br/>(Provision / Launch)"]
+    end
+
+    State -->|"~/.muto/state/"| StateDir["gap_follower/state.json"]
+    Plugins -->|"~/.muto/workspaces/"| WorkDir["gap_follower/<br/>src/ build/ install/"]
 ```
 
 ## Troubleshooting
