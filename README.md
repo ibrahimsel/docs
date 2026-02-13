@@ -1,10 +1,11 @@
-# liveui-website
+# Eclipse Muto Documentation
 
-website for docs
+This website is built using [Docusaurus 3](https://docusaurus.io/), a modern static website generator.
 
-# Website
+### Prerequisites
 
-This website is built using [Docusaurus 2](https://v2.docusaurus.io/), a modern static website generator.
+- Node.js >= 18.0
+- npm >= 9 or Yarn >= 1.22
 
 ### Installation
 
@@ -18,7 +19,7 @@ $ yarn
 $ yarn start
 ```
 
-This command starts a local development server and open up a browser window. Most changes are reflected live without having to restart the server.
+This command starts a local development server and opens a browser window. Most changes are reflected live without having to restart the server.
 
 ### Build
 
@@ -35,15 +36,3 @@ $ GIT_USER=<Your GitHub username> USE_SSH=true yarn deploy
 ```
 
 If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
-
-### Troubleshooting
-
-Note that all `@docusaurus/`-namespaced packages should be using the same version.
-
-```json
-"dependencies": {
-  "@docusaurus/core": "^2.0.0-alpha.54",
-  "@docusaurus/preset-classic": "^2.0.0-alpha.54",
-  // ...
-}
-```

@@ -8,13 +8,15 @@ module.exports = {
   projectName: 'docs', // Usually your repo name.
   deploymentBranch: 'gh-pages',
   onBrokenLinks: 'warn',
-  onBrokenMarkdownLinks: 'warn',
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
   },
   markdown: {
     mermaid: true,
+    hooks: {
+      onBrokenMarkdownLinks: 'warn',
+    },
   },
   themes: ['@docusaurus/theme-mermaid'],
   plugins: ['docusaurus-plugin-sass', '@docusaurus/plugin-ideal-image'],
@@ -151,6 +153,8 @@ module.exports = {
           showReadingTime: true,
           editUrl:
           'https://github.com/eclipse-muto/docs/tree/main/',
+          onInlineAuthors: 'ignore',
+          onUntruncatedBlogPosts: 'ignore',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.scss'),
