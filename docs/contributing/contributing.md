@@ -87,6 +87,8 @@ Example:
 
 Your feature requests are accepted. However, take a few moments to find out if your idea is suitable for the scope and objectives of Eclipse Muto. Please provide as much detail and context as possible to convince the developers of the project on the merits of this feature.
 
+For larger features or architectural changes, consider writing a [Muto Enhancement Proposal (MEP)](./mep).
+
 
 ## Pull Request
 You love using an open source project, but you think some of its features missing? You can fork the code and add these features. This will benefit both you and the community using the project.
