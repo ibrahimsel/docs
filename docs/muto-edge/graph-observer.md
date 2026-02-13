@@ -7,7 +7,7 @@ sidebar_position: 5
 
 # Graph Observer
 
-The Graph Observer is a Composer subsystem that continuously monitors the live ROS 2 computational graph, compares it against the desired state from the deployed stack manifest, detects drift, and exposes the state to external tools. See [MEP-0001](../contributing/mep/MEP-0001) for the full design proposal.
+The Graph Observer is a two-process subsystem that continuously monitors the live ROS 2 computational graph, compares it against the desired state from the deployed stack manifest, detects drift, and exposes the state to external tools. The observation loop runs in the **Muto Daemon** (`muto_daemon`), a dedicated C++ node built with rclcpp for deterministic timing on edge devices. Reconciliation decisions are handled by the **Muto Composer** (`muto_composer`). See [MEP-0001](../contributing/mep/MEP-0001) for the full design proposal.
 
 :::info Status
 This feature is proposed in [MEP-0001](../contributing/mep/MEP-0001) and is not yet implemented. This page documents the planned API for early feedback and integration planning.
@@ -17,20 +17,25 @@ This feature is proposed in [MEP-0001](../contributing/mep/MEP-0001) and is not 
 
 After a stack is deployed, the Graph Observer:
 
-1. **Probes** the live ROS 2 graph every 5 seconds (configurable)
+1. **Probes** the live ROS 2 graph every 5 seconds via the Daemon (configurable)
 2. **Compares** the actual running nodes against the desired state from the stack manifest
 3. **Detects** drift (missing nodes, unexpected nodes, parameter changes)
 4. **Publishes** the full graph state and change events to ROS topics
 5. **Syncs** graph state to the Eclipse Ditto digital twin for cloud-side observability
-6. **Reconciles** drift by restarting individual nodes or escalating to full redeploy
+6. **Reconciles** drift via the Composer by restarting individual nodes or escalating to full redeploy
 
 ```mermaid
 graph LR
-    GO[Graph Observer] -->|probe| RG[ROS 2 Graph]
+    subgraph "muto_daemon (C++)"
+        GO[Graph Observer]
+    end
+    GO -->|probe| RG[ROS 2 Graph]
     GO -->|publish| T1[/muto/graph_state]
     GO -->|publish| T2[/muto/graph_events]
     GO -->|publish| T3[/muto/graph_state_json]
-    GO -->|sync| DT[Ditto Digital Twin]
+    GO -->|publish| T4[/muto/graph_drift]
+    T4 --> COMP[Muto Composer]
+    COMP -->|sync| DT[Ditto Digital Twin]
     T1 --> DB[Dashboard]
     T2 --> DB
     T3 --> WEB[Web UI via rosbridge]
@@ -84,9 +89,9 @@ JSON-stringified graph snapshot for easy consumption by web dashboards that cann
 
 ## ROS Services
 
-### `/muto/get_graph_state`
+### `/muto/get_graph_state` (Daemon)
 
-On-demand graph state query. Triggers an immediate probe cycle.
+On-demand graph state query. Triggers an immediate probe cycle. Served by the Daemon.
 
 - **Type:** `muto_msgs/GetGraphState`
 
@@ -100,9 +105,9 @@ bool success
 string error_message
 ```
 
-### `/muto/reconcile_now`
+### `/muto/reconcile_now` (Composer)
 
-Force an immediate reconciliation cycle. Supports dry-run mode for observing what actions would be taken without executing them.
+Force an immediate reconciliation cycle. Supports dry-run mode for observing what actions would be taken without executing them. Served by the Composer (since reconciliation requires access to the launch infrastructure).
 
 - **Type:** `muto_msgs/ReconcileNow`
 
@@ -342,33 +347,67 @@ curl -u user:password \
 
 ## Configuration
 
-The Graph Observer is configured via ROS parameters on the `muto_composer` node:
+Configuration is split across the Daemon and Composer nodes.
+
+### Daemon Parameters (`muto_daemon`)
 
 | Parameter | Type | Default | Description |
 |---|---|---|---|
-| `reconciliation_enabled` | bool | `true` | Enable/disable the Graph Observer |
-| `reconciliation_mode` | string | `"auto"` | `auto`: detect and fix; `notify_only`: detect only; `disabled`: off |
 | `graph_observer_interval` | float | `5.0` | Seconds between graph probes |
+| `graph_observer_enabled` | bool | `true` | Enable/disable the observation loop |
+
+### Composer Parameters (`muto_composer`)
+
+| Parameter | Type | Default | Description |
+|---|---|---|---|
+| `reconciliation_enabled` | bool | `true` | Enable/disable reconciliation actions |
+| `reconciliation_mode` | string | `"auto"` | `auto`: detect and fix; `notify_only`: detect only; `disabled`: off |
 | `reconciliation_max_retries` | int | `3` | Max restart attempts per node before escalating |
 | `reconciliation_cooldown_sec` | float | `30.0` | Minimum seconds between reconciliation attempts |
+| `graph_observer_stabilization_sec` | float | `15.0` | Seconds to wait after deployment before learning desired state |
 
-Example launch configuration:
+### Example Launch Configuration
 
 ```python
-Node(
-    package='muto_composer',
-    executable='muto_composer',
-    parameters=[{
-        'reconciliation_enabled': True,
-        'reconciliation_mode': 'notify_only',  # Start with monitoring only
-        'graph_observer_interval': 10.0,        # Probe every 10 seconds
-    }]
-)
+from launch import LaunchDescription
+from launch_ros.actions import Node
+
+def generate_launch_description():
+    return LaunchDescription([
+        # Daemon: C++ observation loop
+        Node(
+            package='muto_daemon',
+            executable='muto_daemon',
+            parameters=[{
+                'graph_observer_interval': 10.0,  # Probe every 10 seconds
+            }]
+        ),
+        # Composer: Python reconciliation
+        Node(
+            package='muto_composer',
+            executable='muto_composer',
+            parameters=[{
+                'reconciliation_enabled': True,
+                'reconciliation_mode': 'notify_only',  # Start with monitoring only
+            }]
+        ),
+    ])
 ```
+
+## Architecture
+
+The Graph Observer is split across two processes for performance and fault isolation:
+
+| Process | Language | Role |
+|---|---|---|
+| `muto_daemon` | C++ (rclcpp) | Graph probing, drift detection, state publishing, `GetGraphState` service |
+| `muto_composer` | Python (rclpy) | Reconciliation decisions, corrective actions, `ReconcileNow` service, Ditto sync |
+
+The Daemon uses C++ to eliminate Python GIL/GC overhead on edge devices. It communicates with the Composer exclusively via ROS topics and services. See [MEP-0001](../contributing/mep/MEP-0001#daemon-architecture) for the full architectural rationale.
 
 ## Related
 
 - [MEP-0001: Live ROS Graph Orchestration](../contributing/mep/MEP-0001) -- Full design proposal
-- [Composer Documentation](./composer) -- Stack lifecycle management
+- [Composer Documentation](./composer) -- Stack lifecycle management and reconciliation
 - [Agent Documentation](./agent) -- Communication bridge
 - [Core Documentation](./core) -- Digital twin connectivity
