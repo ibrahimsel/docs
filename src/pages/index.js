@@ -49,12 +49,11 @@ const features = [
     description: (
       <>
         Muto is built on an extensible architecture. Similar to plugins and the
-        extension points that are foundational to Eclipse extensibility. many of
+        extension points that are foundational to Eclipse extensibility, many of
         Muto's functionality are implemented as plugins that you can easily
         replace and modify for your requirements. You can add new ROS nodes for
         controlling, monitoring, composing and adapting vehicle behavior as
-        plugins. The Muto dashboard is also extensible with our own{" "}
-        <a href="/liveui">LiveUI</a> framework.
+        plugins.
       </>
     ),
   },

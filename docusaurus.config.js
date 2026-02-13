@@ -13,6 +13,10 @@ module.exports = {
     defaultLocale: 'en',
     locales: ['en'],
   },
+  markdown: {
+    mermaid: true,
+  },
+  themes: ['@docusaurus/theme-mermaid'],
   plugins: ['docusaurus-plugin-sass', '@docusaurus/plugin-ideal-image'],
   themeConfig: {
     background: 'light',
@@ -42,12 +46,6 @@ module.exports = {
           to: 'docs/blueprint',
           activeBasePath: 'docs/blueprint',
           label: 'Blueprints',
-          position: 'left',
-        },
-        {
-          to: 'liveui',
-          activeBasePath: 'liveui',
-          label: 'LiveUI',
           position: 'left',
         },
         {
@@ -133,10 +131,6 @@ module.exports = {
             {
               label: 'Dashboard Demo',
               href: 'https://dashboard.composiv.ai',
-            },
-            {
-              label: 'LiveUI',
-              to: '/docs/LiveUI',
             },
           ],
         },

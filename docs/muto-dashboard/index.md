@@ -144,7 +144,7 @@ Access Symphony Portal directly at `http://localhost:3000` when running locally.
 
 ## Architecture
 
-The Dashboard uses a micro-frontend architecture built with [LiveUI](../LiveUI/):
+The Dashboard uses a micro-frontend architecture:
 
 ```
 ┌─────────────────────────────────────────┐
@@ -184,7 +184,7 @@ The Dashboard supports customization through:
 
 - **Themes**: Light/dark mode, custom colors
 - **Layouts**: Configurable dashboard layouts
-- **Plugins**: Add custom functionality via LiveUI plugins
+- **Plugins**: Add custom functionality via plugins
 
 ## Running Locally
 
@@ -207,7 +207,7 @@ npm start
 
 ## Extending the Dashboard
 
-Create custom plugins using LiveUI:
+Create custom plugins:
 
 ```javascript
 // my-plugin/index.js
@@ -220,7 +220,7 @@ export default {
 };
 ```
 
-See [LiveUI Documentation](../LiveUI/) for detailed plugin development guide.
+
 
 ## Troubleshooting
 
@@ -245,5 +245,4 @@ See [LiveUI Documentation](../LiveUI/) for detailed plugin development guide.
 ## Related Resources
 
 - [Digital Twins Documentation](../muto-twins)
-- [LiveUI Framework](../LiveUI/)
 - [Eclipse Ditto API](https://www.eclipse.dev/ditto/http-api-doc.html)
