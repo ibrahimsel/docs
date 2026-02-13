@@ -2,201 +2,230 @@
 id: command-plugin-by-example
 title: Command Plugin By Example
 sidebar_label:  Command Plugin By Example
-sidebar_position: 1
+sidebar_position: 2
 ---
 
 In this section, we will quickly describe how to create and get familiar with Muto Command Plugins and their implementation.
 
 ### Prerequisites
-- [mqttx](https://mqttx.app/ "Heading link")<br/>
-- [docker](https://docs.docker.com/engine/install/ "Heading link")<br/>
-- [npm >= 5](https://www.npmjs.com/get-npm/ "Heading link")<br/>
+- [MQTTX](https://mqttx.app/)
+- [Docker or Podman](https://docs.docker.com/engine/install/)
+- ROS 2 Humble
 
 ## Developing a command plugin
 
-
 Let's start by designing the command.
 
-If you navigate to `example.yaml` (see previous example)
+In your `config/muto.yaml`, add a new command entry under the `commands` section:
 
-We'll add the following section.
+```yaml title="config/muto.yaml"
+/**:
+  ros__parameters:
+    # ... other parameters ...
 
-
-```sh
-plugin: CommandPlugin
-        - name: bcx/rc
-          service: bcx_remotecontrol
-          plugin: CommandPlugin
+    commands:
+      command1:
+        name: ros/topic
+        service: rostopic_list
+        plugin: CommandPlugin
+      # Add your custom command:
+      custom_command:
+        name: bcx/rc
+        service: bcx_remotecontrol
+        plugin: CommandPlugin
 ```
 
-*Our command is : bcx/rc*
-
-
-- Create an empty src folder.
-- Clone the bcx ROS package for python into your src folder.
-- Add bcx_commandplugin.py
+*Our command is: bcx/rc*
 
 ## The Code
 
+Create a ROS 2 package for your command plugin. If you need guidance on creating ROS 2 packages, refer to the [ROS 2 Creating Packages tutorial](https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Creating-Your-First-ROS2-Package.html).
 
-*If you wish to create your own `package`, you can find the corresponding guide [here](http://wiki.ros.org/ROS/Tutorials/CreatingPackage/ "Heading link")<br/>*
-*If you wish to create your own package `workspace`, you can find the corresponding guide [here](http://wiki.ros.org/catkin/workspaces/ "Heading link")<br/>*
+### Plugin structure
+
+```
+my_command_plugin/
+├── my_command_plugin/
+│   ├── __init__.py
+│   └── bcx_commandplugin.py
+├── package.xml
+├── setup.py
+├── setup.cfg
+└── resource/
+    └── my_command_plugin
+```
+
+### Plugin implementation
+
+Here is the main layout of the command plugin using ROS 2 (`rclpy`):
+
+```python title="bcx_commandplugin.py"
+import rclpy
+from rclpy.node import Node
+from std_msgs.msg import String, Int32MultiArray
+from ackermann_msgs.msg import AckermannDriveStamped
+from muto_msgs.srv import CommandPlugin
+import json
 
 
-You can find information regarding the ROS node in `package.xml` and `cmake list`.
+class BcxCommandPlugin(Node):
+    def __init__(self):
+        super().__init__('bcx_commandplugin')
 
-If you face any issues, refer to the ROS tutorial above for solutions.
+        # Create service
+        self.srv = self.create_service(
+            CommandPlugin, 'bcx_remotecontrol', self.handle_remotecontrol
+        )
 
-**--REDACTED--**
+        # Create publishers
+        self.pubkey = self.create_publisher(String, '/key', 1)
+        self.pubmux = self.create_publisher(Int32MultiArray, '/mux', 1)
+        self.drivepub = self.create_publisher(AckermannDriveStamped, '/drive', 10)
 
-You can access the entire code [here](bcx_commandplugin.py)
+        self.get_logger().info('BCX Command Plugin started')
+
+    def handle_remotecontrol(self, request, response):
+        payload = json.loads(request.payload)
+        control_type = payload.get("control", "")
+
+        if control_type == "keyboard":
+            msg = Int32MultiArray(data=[0, 1, 0, 0, 0, 0])
+            self.pubmux.publish(msg)
+
+        elif control_type == "navigator":
+            msg = Int32MultiArray(data=[0, 0, 0, 0, 1, 0])
+            self.pubmux.publish(msg)
+
+        elif control_type == "joystick":
+            x = payload["x"] / 100.0
+            y = payload["y"] / 100.0
+            desired_velocity = 7 * y
+            desired_steer = -0.4189 * x
+
+            drive_msg = AckermannDriveStamped()
+            drive_msg.drive.speed = desired_velocity
+            drive_msg.drive.steering_angle = desired_steer
+            self.drivepub.publish(drive_msg)
+
+        elif control_type == "reset":
+            msg = Int32MultiArray(data=[0, 0, 0, 0, 0, 0])
+            self.pubmux.publish(msg)
+
+        response.output = json.dumps({"status": "ok"})
+        return response
 
 
+def main(args=None):
+    rclpy.init(args=args)
+    node = BcxCommandPlugin()
+    rclpy.spin(node)
+    node.destroy_node()
+    rclpy.shutdown()
 
-This is the main layout of our code. It's basically a package with a .json payload which includes data such as `control type`, `type`, `direction`, `x and y data`, `velocity`.
 
-```yaml
+if __name__ == '__main__':
+    main()
+```
+
+This plugin registers a service named `bcx_remotecontrol`, which should match the string set in `muto.yaml`. When the plugin receives a command with a JSON payload, it publishes a message to the relevant topic (`/key`, `/mux`, or `/drive`).
+
+The payload structure:
+
+```json
 {
-    "control": "navigator",
+    "control": "navigator"
 }
 ```
 
-This plugin reggisters a service named `bcx_remotecontrol`, which should map the string that you set in the example.yaml.  When the plugin recieves a command with the payload that is defined above, it will publish a message to the relevant topic (in this case one of /key, /mux or /drive).
+### Control modes
 
-```py
+- **Keyboard**: Requires `control`, `type`, `direction` fields
+- **Joystick**: Requires `control`, `x` and `y` fields
+- **Navigator**: Autopilot mode, no additional input data required
 
-if __name__ == '__main__': 
-  try:
-    
-    rospy.init_node('bcx_commandplugin')
-    bcx_remotecontrol = rospy.Service(
-            "bcx_remotecontrol", muto_srv.CommandPlugin, handle_remotecontrol)
-    pubkey = rospy.Publisher('/key', String, queue_size=1)
-    pubmux = rospy.Publisher('/mux', Int32MultiArray, queue_size=1)
-    drivepub = rospy.Publisher('/drive', AckermannDriveStamped, queue_size=10)
-    rospy.spin()
-    
-  except rospy.ROSInterruptException:
-    pass
+You can change the desired speed of your vehicle with the following formula (max velocity and steering angle are hardcoded):
 
-```
-
-### Control Logic
-
-When the plugin receives a command with a payload, it uses the following logic to control the car.  (e.g. control/type/direction etc. in the payload). Control modes and reqiured data types are: 
-- Keyboard : `control type` `type` `direction`
-- Joystick : `control type` `x and y`
-- Navigator : Since it's the autopilot mode it doens't require us to send any input data.
-
-
-You can find additional infomation regarding these control types in the F1Tenth files.
-
-```py
-if controlType == "keyboard" :
-      msg = Int32MultiArray(data=[0,1,0,0,0,0])
-      pubmux.publish(msg)
-
-  if controlType == "navigator" :
-      msg = Int32MultiArray(data=[0,0,0,0,1,0])
-      pubmux.publish(msg)
-
-  if controlType == "joystick":
-      x = payload["x"]/100.0
-      y = payload["y"]/100.0
-
-  if controlType == "reset" :
-      msg = Int32MultiArray(data=[0,0,0,0,0,0])
-      pubmux.publish(msg)   
-```
-
-
-
-You can change the desired speed of your vehicle by the following simple formula ( max velocity and steering angle are hardcoded) :
-
-```py
+```python
 desired_velocity = 7 * y
 desired_steer = -0.4189 * x
-
 ```
 
-**Modes and reqiured data types : **
+### Setup entry point
 
-- Keyboard : `control type` `type` `direction` `x and y`
+In your `setup.py`, register the executable:
 
-- Joystick : `control type` `type` `x and y`
+```python title="setup.py"
+entry_points={
+    'console_scripts': [
+        'bcx_commandplugin = my_command_plugin.bcx_commandplugin:main',
+    ],
+},
+```
 
-- Navigator : Since it's the autopilot mode it doens't require us to send any input data.
+### Launch file integration
+
+Create a ROS 2 launch file that includes your plugin alongside the Muto system:
+
+```python title="launch/example.launch.py"
+from launch import LaunchDescription
+from launch_ros.actions import Node
+from launch.actions import IncludeLaunchDescription
+from launch.launch_description_sources import PythonLaunchDescriptionSource
+import os
 
 
-You can find additional infomation regarding these control types in the F1Tenth files.
+def generate_launch_description():
+    muto_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join('launch', 'muto.launch.py')
+        )
+    )
 
-Now create a dedicated workspace for docker operations. For the sake of this example we'll call that workspace `junk`.
+    bcx_plugin = Node(
+        package='my_command_plugin',
+        executable='bcx_commandplugin',
+        name='bcx_commandplugin',
+        output='screen',
+    )
+
+    return LaunchDescription([
+        muto_launch,
+        bcx_plugin,
+    ])
+```
+
+### Building and running
 
 ```bash
-mkdir JUNK
-cd JUNK
-mkdir src
+# Build the workspace
+cd ~/muto_ws
+colcon build --symlink-install
+
+# Source and launch
+source /opt/ros/$ROS_DISTRO/setup.bash
+source install/setup.bash
+ros2 launch launch/example.launch.py \
+    vehicle_namespace:=org.eclipse.muto.sandbox \
+    vehicle_name:=my-f1tenth-01
 ```
 
-
-create a file named : `example.launch`
-```launch
-<?xml version="1.0"?>
-<launch>
-
-    <arg name="muto" default="$(dirname)/.." />
-
-    <node pkg="muto_agent" name="muto_agent" type="muto_agent.py" output="screen">
-        <rosparam command="load" file="$(arg muto)/launch/config/muto.yaml" />
-    </node>
-
-    <node pkg="muto_composer" name="muto_composer" type="muto_composer.py" output="screen">
-        <rosparam command="load" file="$(arg muto)/launch/config/muto.yaml" />
-    </node>
-
-
-    <node pkg="muto_composer" name="composer_plugin" type="composer_plugin.py" output="screen">
-        <rosparam command="load" file="$(arg muto)/launch/config/muto.yaml" />
-    </node>
-
-    <node pkg="muto_composer" name="launch_plugin" type="launch_plugin.py" output="screen">
-        <rosparam command="load" file="$(arg muto)/launch/config/muto.yaml" />
-    </node>
-
-    <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch">
-        <arg name="port" value="7777"/>
-    </include>
-
-    <node pkg="mutoexamples_bcxcommands" name="bcx_commandplugin" type="bcx_commandplugin.py" output="screen">
-    </node>
-
-</launch>
-```
-create a file named : `example.yaml`
-Copy the contents of `example.yaml` into it (see previous examples)
-
-within your workspace run 
-
-```sh
-docker run --name muto-demo --rm -it \
-   -v $(pwd)/example.yaml:/home/muto/launch/config/muto.yaml  \
-   -v $(pwd)/example.launch:/home/muto/launch/example.launch  \
-   -v $(pwd)/src/mutoexamples_bcxcommands:/home/muto/src/mutoexamples_bcxcommands  \
-   -p 7777:7777 -p 11311:11311  \
-   composiv/muto-demo:noetic-ros-base-focal  \
-   /bin/bash -c "source devel/setup.bash && catkin_make && roslaunch launch/example.launch"
+You should see the confirmation:
 
 ```
-You should see the confirmation line
-
-```bash
-Connected with result code Success
-Subscribed to:  org.eclipse.muto.sandbox.f1tenth:docs-bcx-01/#
-
+[INFO] [bcx_commandplugin]: BCX Command Plugin started
+[INFO] [muto_agent-1]: Muto Agent started successfully
+[INFO] [mqtt-2]: MQTT connection established to sandbox.composiv.ai:1883
 ```
-The ROS workspace in the docker image is /home/muto.
-Please pay extra attention to the `name:` of our service. It needs to be identical to the name in the `.yaml` file.
-We'll publish data either to `/drive`,`/key` or `/mux ` topics depending on the command that this channel recieves.
 
-Now execute the steps in `Muto by Example` and continue until this step. Then use MQTTX to send you commands to agent and observe that your vehicle acts accordingly in Foxglove Visualiser.
+Please pay extra attention to the `name:` of the service in the YAML file — it must be identical to the service name registered in your plugin node. The plugin will publish data to `/drive`, `/key`, or `/mux` topics depending on the command it receives.
 
+### Testing with MQTTX
+
+Use [MQTTX](https://mqttx.app/) to send commands to the agent and observe that your vehicle acts accordingly:
+
+1. Connect to `mqtt://sandbox.composiv.ai:1883`
+2. Subscribe to `#` to see all messages
+3. Send a command payload to trigger your plugin
+4. Observe the vehicle response in Foxglove or the Dashboard
+
+Follow the steps in [Muto by Example](./by-example) to set up the full system, then use MQTTX to send commands and observe the vehicle behavior.
