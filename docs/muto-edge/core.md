@@ -60,7 +60,7 @@ The Twin service (`core_twin`) provides the interface between Muto and the digit
 node_twin = Node(
     namespace=LaunchConfiguration("muto_namespace"),
     name="core_twin",
-    package="core",
+    package="muto_core",
     executable="twin",
     output="screen",
     parameters=[

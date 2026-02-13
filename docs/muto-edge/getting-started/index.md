@@ -16,7 +16,7 @@ Eclipse Muto supports multiple deployment approaches:
 | Option | Best For | Prerequisites |
 |--------|----------|---------------|
 | **Container Deployment** | Production, consistent deployments | Docker/Podman |
-| **Source Build** | Development, customization | ROS 2 Humble, Python 3.8+ |
+| **Source Build** | Development, customization | ROS 2 Humble, Python 3.10+ |
 | **Development Container** | Development, VS Code users | Docker, VS Code |
 
 ## Quick Start with Containers (Recommended)
@@ -33,16 +33,19 @@ The fastest way to get started is using pre-built container images.
 1. **Pull the Muto container image**:
 
 ```bash
-docker pull ghcr.io/eclipse-muto/muto:latest
+docker pull ghcr.io/eclipse-muto/muto:ros2-humble
 ```
 
 2. **Run Muto**:
 
 ```bash
 docker run -it --rm \
-    -e VEHICLE_NAMESPACE=org.eclipse.muto.test \
-    -e VEHICLE_NAME=test-robot-001 \
-    ghcr.io/eclipse-muto/muto:latest
+    -e MUTO_LAUNCH=/work/launch/muto.launch.py \
+    -e MUTO_LAUNCH_ARGS="vehicle_namespace:=org.eclipse.muto.test vehicle_name:=test-robot-001 enable_symphony:=true" \
+    -v $(pwd)/launch:/work/launch:ro \
+    -v $(pwd)/config:/work/config:ro \
+    --network host \
+    ghcr.io/eclipse-muto/muto:ros2-humble
 ```
 
 ## Building from Source
@@ -52,7 +55,7 @@ For development or customization, build Muto from source.
 ### Prerequisites
 
 - **ROS 2 Humble** or later
-- **Python 3.8** or later
+- **Python 3.10** or later
 - **colcon** and **rosdep** for building and dependency management
 
 ```bash
@@ -63,22 +66,18 @@ sudo apt install python3-colcon-common-extensions python3-rosdep
 
 ### Steps
 
-1. **Clone the repositories**:
+1. **Clone the repository**:
 
 ```bash
-cd $HOME
-mkdir -p muto/src
-cd muto/src
-git clone https://github.com/eclipse-muto/agent.git
-git clone https://github.com/eclipse-muto/core.git
-git clone https://github.com/eclipse-muto/composer.git
-git clone https://github.com/eclipse-muto/messages.git
+mkdir -p ~/muto_ws/src
+cd ~/muto_ws/src
+git clone --recurse-submodules https://github.com/eclipse-muto/muto.git
 ```
 
 2. **Install dependencies**:
 
 ```bash
-cd $HOME/muto
+cd ~/muto_ws
 rosdep update
 rosdep install --from-paths src --ignore-src -r -y
 ```
@@ -86,7 +85,7 @@ rosdep install --from-paths src --ignore-src -r -y
 3. **Build the workspace**:
 
 ```bash
-cd $HOME/muto
+cd ~/muto_ws
 colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release
 ```
 
@@ -94,7 +93,7 @@ colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release
 
 ```bash
 source /opt/ros/$ROS_DISTRO/setup.bash
-source install/local_setup.bash
+source install/setup.bash
 ```
 
 ## Configuration
@@ -138,9 +137,9 @@ Create `config/muto.yaml`:
 Start the full Muto system:
 
 ```bash
-cd $HOME/muto
+cd ~/muto_ws
 source /opt/ros/$ROS_DISTRO/setup.bash
-source install/local_setup.bash
+source install/setup.bash
 ros2 launch launch/muto.launch.py \
     vehicle_namespace:=org.eclipse.muto.test \
     vehicle_name:=test-robot-$(shuf -i 1000-9999 -n 1)
@@ -207,7 +206,7 @@ source /opt/ros/$ROS_DISTRO/setup.bash
 
 2. Verify the workspace is built and sourced:
 ```bash
-source install/local_setup.bash
+source install/setup.bash
 ```
 
 ### Connection issues

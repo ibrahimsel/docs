@@ -38,7 +38,7 @@ This guide is designed for:
 Before diving into development, you should have:
 
 - **Strong ROS 2 Experience**: Understanding of ROS 2 concepts, launch systems, and node development
-- **Python Proficiency**: Most Muto components are written in Python 3.8+
+- **Python Proficiency**: Most Muto components are written in Python 3.10+
 - **Linux Expertise**: Development is primarily on Ubuntu 20.04/22.04
 - **Git/GitHub Skills**: Version control and collaborative development
 - **Container Knowledge**: Docker/Podman for testing and deployment
@@ -55,18 +55,16 @@ sudo apt update
 sudo apt install ros-humble-desktop
 ```
 
-2. **Clone repositories**:
+2. **Clone the repository**:
 ```bash
-mkdir -p ~/muto/src && cd ~/muto/src
-git clone https://github.com/eclipse-muto/agent.git
-git clone https://github.com/eclipse-muto/core.git
-git clone https://github.com/eclipse-muto/composer.git
-git clone https://github.com/eclipse-muto/messages.git
+mkdir -p ~/muto_ws/src
+cd ~/muto_ws/src
+git clone --recurse-submodules https://github.com/eclipse-muto/muto.git
 ```
 
 3. **Install dependencies**:
 ```bash
-cd ~/muto
+cd ~/muto_ws
 rosdep update
 rosdep install --from-paths src --ignore-src -r -y
 ```
@@ -144,7 +142,7 @@ Declarative state management with reconciliation loops:
 ### Running Tests
 
 ```bash
-cd ~/muto
+cd ~/muto_ws
 colcon test
 colcon test-result --verbose
 ```

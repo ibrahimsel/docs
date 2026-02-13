@@ -108,7 +108,7 @@ The Agent is configured through `muto.yaml`:
 To launch the Agent as part of the full Muto system:
 
 ```bash
-source /opt/ros/$ROS_DISTRO/setup.bash && source install/local_setup.bash
+source /opt/ros/$ROS_DISTRO/setup.bash && source install/setup.bash
 ros2 launch launch/muto.launch.py \
     vehicle_namespace:=org.eclipse.muto.test \
     vehicle_name:=test-robot-001
