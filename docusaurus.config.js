@@ -1,18 +1,20 @@
 module.exports = {
   title: 'Eclipse Muto',
-  tagline: 'Adaptive ROS framework and a runtime platform for dynamically composable model-driven ROS software stacks',
+  tagline: 'Declarative orchestrator for managing ROS software stacks on edge devices',
   url: 'https://github.com',
   baseUrl: '/docs/',
   favicon: 'img/favicon.ico',
   organizationName: 'eclipse-muto', // Usually your GitHub org/user name.
   projectName: 'docs', // Usually your repo name.
-  deploymentBranch: 'gh-pages', 
+  deploymentBranch: 'gh-pages',
+  onBrokenLinks: 'warn',
+  onBrokenMarkdownLinks: 'warn',
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
   },
   plugins: ['docusaurus-plugin-sass', '@docusaurus/plugin-ideal-image'],
-  themeConfig: {    
+  themeConfig: {
     background: 'light',
     prism: {
       defaultLanguage: 'javascript',
@@ -26,8 +28,20 @@ module.exports = {
       items: [
         {
           to: 'docs/muto',
-          activeBasePath: 'docs',
+          activeBasePath: 'docs/muto',
           label: 'Introduction',
+          position: 'left',
+        },
+        {
+          to: 'docs/muto-edge',
+          activeBasePath: 'docs/muto-edge',
+          label: 'Edge',
+          position: 'left',
+        },
+        {
+          to: 'docs/blueprint',
+          activeBasePath: 'docs/blueprint',
+          label: 'Blueprints',
           position: 'left',
         },
         {
@@ -37,21 +51,8 @@ module.exports = {
           position: 'left',
         },
         {
-          to: 'showcase',
-          activeBasePath: 'showcase',
-          label: 'LiveUI Showcase',
-          position: 'left',
-        },
-        // {
-        //   to: 'support',
-        //   activeBasePath: 'support',
-        //   label: 'Support',/docs/intro
-        //   position: 'left',
-        // },
-        // {to: 'blog', label: 'Blog', position: 'left'},
-        {
           href: 'https://github.com/eclipse-muto',
-          label: 'Muto on GitHub',
+          label: 'GitHub',
           position: 'right',
         },
       ],
@@ -60,66 +61,87 @@ module.exports = {
       style: 'dark',
       links: [
         {
-          title: 'Docs',
+          title: 'Documentation',
           items: [
             {
               label: 'Introduction',
-              to: './docs/muto',
+              to: '/docs/muto',
             },
             {
               label: 'Getting Started',
-              to: './docs/LiveUI/getting-started/getting-started-react',
+              to: '/docs/muto-edge/getting-started',
             },
             {
-              label: 'Explore The Code',
-              to: './docs/LiveUI/explore',
+              label: 'Blueprints',
+              to: '/docs/blueprint',
             },
             {
-              label: 'API Reference',
-              to: './docs/LiveUI/api-reference',
+              label: 'User Guide',
+              to: '/docs/user-guide',
             },
             {
-              label: 'Contributing',
-              to: 'docs/contributing',
-            },
-            {
-              label: 'Support',
-              to: './docs/LiveUI/support/troubleshooting',
+              label: 'Developer Guide',
+              to: '/docs/developer-guide',
             },
           ],
         },
-        // {
-        //   title: 'Community',
-        //   items: [
-        //     {
-        //       label: 'Stack Overflow',
-        //       href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-        //     },
-        //     {
-        //       label: 'Discord',
-        //       href: 'https://discordapp.com/invite/docusaurus',
-        //     },
-        //     {
-        //       label: 'Twitter',
-        //       href: 'https://twitter.com/docusaurus',
-        //     },
-        //   ],
-        // },
         {
-          title: 'More',
+          title: 'Components',
           items: [
-            // {
-            //   label: 'Blog',
-            //   to: 'blog',
-            // },
+            {
+              label: 'Agent',
+              to: '/docs/muto-edge/mutoagent',
+            },
+            {
+              label: 'Composer',
+              to: '/docs/muto-edge/mutocomposer',
+            },
+            {
+              label: 'Digital Twins',
+              to: '/docs/muto-twins',
+            },
+            {
+              label: 'Dashboard',
+              to: '/docs/muto-dashboard',
+            },
+          ],
+        },
+        {
+          title: 'Community',
+          items: [
             {
               label: 'GitHub',
               href: 'https://github.com/eclipse-muto',
             },
+            {
+              label: 'Eclipse Foundation',
+              href: 'https://projects.eclipse.org/projects/automotive.muto',
+            },
+            {
+              label: 'Contributing',
+              to: '/docs/contributing/contributing',
+            },
+          ],
+        },
+        {
+          title: 'Resources',
+          items: [
+            {
+              label: 'Sandbox',
+              href: 'https://sandbox.composiv.ai',
+            },
+            {
+              label: 'Dashboard Demo',
+              href: 'https://dashboard.composiv.ai',
+            },
+            {
+              label: 'LiveUI',
+              to: '/docs/LiveUI',
+            },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} <a href="https://eclipse.org">Eclipse Foundation</a>  - All rights reserved`,
+      copyright: `Copyright © ${new Date().getFullYear()} <a href="https://eclipse.org">Eclipse Foundation</a> - All rights reserved`,
     },
   },
   presets: [
@@ -128,15 +150,13 @@ module.exports = {
       {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          // Please change this to your repo.
           editUrl:
-          'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          'https://github.com/eclipse-muto/docs/tree/main/',
         },
         blog: {
           showReadingTime: true,
-          // Please change this to your repo.
           editUrl:
-          'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          'https://github.com/eclipse-muto/docs/tree/main/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.scss'),
