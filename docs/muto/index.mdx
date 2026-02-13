@@ -5,8 +5,6 @@ sidebar_label: Introduction
 sidebar_position: 1
 ---
 
-import Mermaid from 'mdx-mermaid/Mermaid';
-
 # Eclipse Muto
 
 **Eclipse Muto** is an open-source, declarative orchestrator for managing ROS (Robot Operating System) software stacks on edge devices. It enables cloud-native orchestration of distributed ROS systems while maintaining the real-time performance and deterministic behavior required for robotic applications.
@@ -40,7 +38,8 @@ Muto is built on an extensible architecture. Similar to plugins and extension po
 
 Eclipse Muto's architecture consists of four primary components that work together to deliver robust model-based orchestration:
 
-<Mermaid chart={`graph TB
+```mermaid
+graph TB
     Cloud[Cloud Orchestration<br/>Eclipse Symphony] --> MQTT[MQTT/HTTP Protocol]
     MQTT <--> Symphony[Symphony Provider<br/>Target Provider]
     Symphony <--> Agent[Muto Agent<br/>Protocol Gateway]
@@ -75,7 +74,7 @@ Eclipse Muto's architecture consists of four primary components that work togeth
         Cloud
         Twin
     end
-`} />
+```
 
 ## Main Components
 

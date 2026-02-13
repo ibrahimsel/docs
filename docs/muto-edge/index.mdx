@@ -5,8 +5,6 @@ sidebar_label: Muto Edge
 sidebar_position: 1
 ---
 
-import Mermaid from 'mdx-mermaid/Mermaid';
-
 # Muto Edge
 
 Muto Edge encompasses the main components that enable orchestration and adaptation of ROS-based software stacks at runtime on edge devices. The edge runtime consists of two major components—**Agent** and **Composer**—that work together to provide declarative orchestration capabilities.
@@ -18,7 +16,8 @@ The Agent and Composer follow a separation of concerns that creates a robust and
 - The **Agent** provides the _what_ (the desired state from any backend)
 - The **Composer** handles the _how_ (the on-vehicle actions to achieve that state)
 
-<Mermaid chart={`sequenceDiagram
+```mermaid
+sequenceDiagram
     participant Cloud as Cloud Orchestrator
     participant Agent as Muto Agent
     participant Composer as Muto Composer
@@ -33,7 +32,7 @@ The Agent and Composer follow a separation of concerns that creates a robust and
     Composer->>Agent: Report Completion Status
     Agent->>Twin: Update Device State
     Twin->>Cloud: Synchronize State
-`} />
+```
 
 ## Core Concepts
 
