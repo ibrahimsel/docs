@@ -11,49 +11,36 @@ import mutosplash from "../../static/img/muto-splash.png";
 
 const features = [
   {
-    title: <>Adaptive</>,
+    title: <>Safe Deployment</>,
     imageUrl: "img/modular.png",
     description: (
       <>
-        Muto is a context aware software solution to address some of the runtime
-        adaptivity{" "}
-        <a href="https://www.darpa.mil/work-with-us/ai-next-campaign">
-          challenges
-        </a>{" "}
-        in autonomous and robotic platforms. Adaptive Muto stacks support
-        connected architectures for autonomous and software-defined vehicles,
-        including supporting cloud-based apps and services that can dynamically
-        change.
+        Deploy software to vehicles with confidence using A/B slot deployment.
+        Every update is cryptographically signed, schema-validated, and instantly
+        rollbackable. A bad update never bricks a vehicle.
       </>
     ),
   },
   {
-    title: <>ROS</>,
+    title: <>ROS 2 Native</>,
     imageUrl: "img/ros-logo-color.png",
     description: (
       <>
-        Muto is a platform that supports ROS from{" "}
-        <a href="https://www.openrobotics.org/">Open Robotics</a>.The Robot
-        Operating System (ROS) is a set of software libraries and tools for
-        building robot applications. ROS has widespread use in many autonomous
-        applications such as the{" "}
-        <a href="https://www.autoware.auto/">Autoware.Auto</a> open-source
-        autonomous driving stack , as well as many other opensource and
-        commercial systems and solutions.
+        Built for{" "}
+        <a href="https://www.openrobotics.org/">ROS 2</a> from the ground up.
+        Lifecycle node management, topic-based health probes, graph monitoring,
+        and DDS configuration — all integrated into a declarative bundle format.
       </>
     ),
   },
   {
-    title: <>Extensible</>,
+    title: <>Fleet Scale</>,
     imageUrl: "img/modular.png",
     description: (
       <>
-        Muto is built on an extensible architecture. Similar to plugins and the
-        extension points that are foundational to Eclipse extensibility, many of
-        Muto's functionality are implemented as plugins that you can easily
-        replace and modify for your requirements. You can add new ROS nodes for
-        controlling, monitoring, composing and adapting vehicle behavior as
-        plugins.
+        Manage hundreds of vehicles from a single dashboard. Monitor health,
+        trigger mode transitions, deploy bundles, and track every action through
+        a tamper-proof audit log.
       </>
     ),
   },
@@ -79,17 +66,14 @@ function Feature({ imageUrl, title, description }) {
 function Home() {
   const context = useDocusaurusContext();
   const { siteConfig = {} } = context;
-  const bannerImg = useBaseUrl("img/banner-img.png");
 
   return (
     <Layout
       title={`${siteConfig.title}`}
-      description="Muto is a context aware software solution to address some of the runtime adaptivity challenges in autonomous and robotic platform"
+      description="Adaptive orchestration for ROS 2 software stacks on vehicles and edge devices"
     >
       <header className={classnames("hero hero--primary", styles.mutoBanner)}>
         <div className="container">
-          {/* <h1 className="hero__title">{siteConfig.title}</h1>
-          <p className="hero__subtitle">{siteConfig.tagline}</p> */}
           <div className="row">
             <div
               className={classnames(
@@ -103,19 +87,19 @@ function Home() {
                 <Link
                   className={classnames("button button--primary button--lg")}
                   style={{ marginRight: 10 }}
-                  to={useBaseUrl("docs/muto")}
+                  to={useBaseUrl("docs/intro")}
                 >
                   Get Started
                 </Link>
                 <Link
                   className={classnames("button button--secondary button--lg")}
                   style={{ background: "#ccd0cf" }}
-                  to={useBaseUrl("docs/muto")}
+                  to={useBaseUrl("docs/architecture/system-overview")}
                 >
-                  Learn More
+                  Architecture
                 </Link>
               </div>
-            
+
             </div>
             <div className={classnames("col col--6")}>
               <Image
@@ -123,9 +107,9 @@ function Home() {
                 img={mutosplash}
                 alt={"banner img"}
               />
-              <h3 style={{color:"white"}}>an adaptive framework and a runtime for dynamically composable model-driven software stacks for ROS</h3>
+              <h3 style={{color:"white"}}>Adaptive orchestration for ROS 2 software stacks on vehicles and edge devices</h3>
             </div>
-  
+
           </div>
         </div>
       </header>

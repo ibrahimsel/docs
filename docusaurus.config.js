@@ -1,11 +1,11 @@
 module.exports = {
   title: 'Eclipse Muto',
-  tagline: 'Declarative orchestrator for managing ROS software stacks on edge devices',
+  tagline: 'Adaptive orchestration for ROS 2 software stacks on vehicles and edge devices',
   url: 'https://github.com',
   baseUrl: '/docs/',
   favicon: 'img/favicon.ico',
-  organizationName: 'eclipse-muto', // Usually your GitHub org/user name.
-  projectName: 'docs', // Usually your repo name.
+  organizationName: 'eclipse-muto',
+  projectName: 'docs',
   deploymentBranch: 'gh-pages',
   onBrokenLinks: 'warn',
   i18n: {
@@ -23,7 +23,8 @@ module.exports = {
   themeConfig: {
     background: 'light',
     prism: {
-      defaultLanguage: 'javascript',
+      defaultLanguage: 'python',
+      additionalLanguages: ['bash', 'yaml', 'json', 'protobuf', 'typescript'],
     },
     navbar: {
       title: 'Muto',
@@ -33,21 +34,27 @@ module.exports = {
       },
       items: [
         {
-          to: 'docs/muto',
-          activeBasePath: 'docs/muto',
+          to: 'docs/intro',
+          activeBasePath: 'docs/intro',
           label: 'Introduction',
           position: 'left',
         },
         {
-          to: 'docs/muto-edge',
-          activeBasePath: 'docs/muto-edge',
-          label: 'Edge',
+          to: 'docs/getting-started/installation',
+          activeBasePath: 'docs/getting-started',
+          label: 'Getting Started',
           position: 'left',
         },
         {
-          to: 'docs/blueprint',
-          activeBasePath: 'docs/blueprint',
-          label: 'Blueprints',
+          to: 'docs/architecture/system-overview',
+          activeBasePath: 'docs/architecture',
+          label: 'Architecture',
+          position: 'left',
+        },
+        {
+          to: 'docs/guides/authoring-bundles',
+          activeBasePath: 'docs/guides',
+          label: 'Guides',
           position: 'left',
         },
         {
@@ -65,23 +72,19 @@ module.exports = {
           items: [
             {
               label: 'Introduction',
-              to: 'docs/muto',
+              to: 'docs/intro',
             },
             {
               label: 'Getting Started',
-              to: 'docs/muto-edge/getting-started',
+              to: 'docs/getting-started/installation',
             },
             {
-              label: 'Blueprints',
-              to: 'docs/blueprint',
+              label: 'Architecture',
+              to: 'docs/architecture/system-overview',
             },
             {
-              label: 'User Guide',
-              to: 'docs/user-guide',
-            },
-            {
-              label: 'Developer Guide',
-              to: 'docs/developer-guide',
+              label: 'Guides',
+              to: 'docs/guides/authoring-bundles',
             },
           ],
         },
@@ -89,24 +92,24 @@ module.exports = {
           title: 'Components',
           items: [
             {
+              label: 'Daemon (mutod)',
+              to: 'docs/architecture/daemon',
+            },
+            {
               label: 'Agent',
-              to: 'docs/muto-edge/agent',
+              to: 'docs/architecture/agent',
             },
             {
               label: 'Composer',
-              to: 'docs/muto-edge/composer',
+              to: 'docs/architecture/composer',
             },
             {
-              label: 'Graph Observer',
-              to: 'docs/muto-edge/graph-observer',
-            },
-            {
-              label: 'Digital Twins',
-              to: 'docs/muto-twins',
+              label: 'CLI',
+              to: 'docs/architecture/cli',
             },
             {
               label: 'Dashboard',
-              to: 'docs/muto-dashboard',
+              to: 'docs/architecture/dashboard',
             },
           ],
         },
@@ -121,27 +124,23 @@ module.exports = {
               label: 'Eclipse Foundation',
               href: 'https://projects.eclipse.org/projects/automotive.muto',
             },
-            {
-              label: 'Contributing',
-              to: 'docs/contributing',
-            },
           ],
         },
         {
           title: 'Resources',
           items: [
             {
-              label: 'Sandbox',
-              href: 'https://sandbox.composiv.ai',
+              label: 'Reference',
+              to: 'docs/reference/manifest-schema',
             },
             {
-              label: 'Dashboard Demo',
-              href: 'https://dashboard.composiv.ai',
+              label: 'Developer Guide',
+              to: 'docs/developer-guide/project-structure',
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} <a href="https://eclipse.org">Eclipse Foundation</a> - All rights reserved`,
+      copyright: `Copyright &copy; ${new Date().getFullYear()} <a href="https://eclipse.org">Eclipse Foundation</a> - All rights reserved`,
     },
   },
   presets: [
